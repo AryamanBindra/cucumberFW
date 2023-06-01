@@ -1,8 +1,12 @@
-package cucumberjul22.stepdefinition;
+package stepdefinition;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,8 +15,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,13 +34,33 @@ import pages.homePage;
 
 public class HomePageStepDefination {
 	static WebDriver driver = null;
+	protected static Logger logger = LogManager.getLogger();
+	protected static ExtentReports extent = new ExtentReports();
+	protected static ExtentHtmlReporter report = null;
+	public static ExtentTest test = null;
 	
+	@Before
+	public void initializeReport() {
+		logger.debug("BaseTest: setup: configuration started ");
+		String dateFormat = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		String reportPath = System.getProperty("user.dir") + "\\src\\main\\resources\\reports\\" + dateFormat
+				+ "cucumber.html";
+		extent = new ExtentReports();
+		report = new ExtentHtmlReporter(reportPath);
+		
+		extent.attachReporter(report);
+		logger.debug("BaseTest: setup: configuration complete");
+	}
 	
-
+	@After
+	public void flushReport() {
+		extent.flush();
+		logger.debug("BaseTest: tearDown: completed ");
+	}
 
 	@Given("user is on home page")
 	public void user_is_on_home_page() throws Exception {
-		
+		test = extent.createTest("climateData");
 		System.out.println("user can see the homepage");
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
@@ -38,10 +70,10 @@ public class HomePageStepDefination {
 		driver.get("https://www.zoopla.co.uk");
 		homePage hp = new homePage(driver);
 		System.out.println("opened");
-		Thread.sleep(3000);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		Thread.sleep(3000);
+//		Thread.sleep(3000);
+//		driver.manage().window().maximize();
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//		Thread.sleep(3000);
 		hp.accept_Cookies.click();
 		Thread.sleep(3000);
 		
@@ -133,5 +165,6 @@ public class HomePageStepDefination {
 		System.out.println("Actual Agent name on the page is: " + AgentInfo_validation);
 		Assert.assertTrue(AgentInfo_validation.contains(AgentNameOn_clickedPage));
 		driver.quit();
+		test.log(Status.INFO, "success");
 	}
 }
