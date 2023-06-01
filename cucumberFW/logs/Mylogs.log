@@ -1,0 +1,9 @@
+[DEBUG] 2023-06-01 14:02:46.939 [main] HomePageStepDefination - BaseTest: setup: configuration started 
+[DEBUG] 2023-06-01 14:02:46.987 [main] HomePageStepDefination - BaseTest: setup: configuration complete
+[DEBUG] 2023-06-01 14:02:50.093 [main] HomePageStepDefination - BaseTest: tearDown: completed 
+[DEBUG] 2023-06-01 14:02:50.107 [main] HomePageStepDefination - BaseTest: setup: configuration started 
+[DEBUG] 2023-06-01 14:02:50.108 [main] HomePageStepDefination - BaseTest: setup: configuration complete
+[DEBUG] 2023-06-01 14:02:50.128 [main] HomePageStepDefination - BaseTest: tearDown: completed 
+[DEBUG] 2023-06-01 14:02:50.134 [main] HomePageStepDefination - BaseTest: setup: configuration started 
+[DEBUG] 2023-06-01 14:02:50.135 [main] HomePageStepDefination - BaseTest: setup: configuration complete
+[DEBUG] 2023-06-01 14:02:50.150 [main] HomePageStepDefination - BaseTest: tearDown: completed 

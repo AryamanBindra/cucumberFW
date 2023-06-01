@@ -12,7 +12,7 @@ public class homePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//button[@class='ui-button-primary ui-cookie-accept-all-medium-large']")
+	@FindBy(xpath = "(//span[@class='mat-button-wrapper'])[2]")
 	public WebElement accept_Cookies;
 	
 	@FindBy(xpath ="//div[@class='search-input-wrapper']//input[@id='search-input-location']")
